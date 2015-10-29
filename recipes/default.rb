@@ -17,7 +17,9 @@
 # limitations under the License.
 #
 
-package 'keepalived'
+package 'keepalived' do
+  source node['keepalived']['source'] if node['keepalived']['source']
+end
 
 if node['keepalived']['shared_address']
   file '/etc/sysctl.d/60-ip-nonlocal-bind.conf' do
