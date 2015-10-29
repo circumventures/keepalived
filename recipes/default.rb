@@ -17,8 +17,15 @@
 # limitations under the License.
 #
 
+if node['keepalived']['source']
+  remote_file "#{Chef::Config[:file_cache_path]}/keepalived.rpm" do
+    source node['keepalived']['source']
+    action :create
+  end
+end
+
 package 'keepalived' do
-  source node['keepalived']['source'] if node['keepalived']['source']
+  source "#{Chef::Config[:file_cache_path]}/keepalived.rpm" if node['keepalived']['source']
 end
 
 if node['keepalived']['shared_address']
